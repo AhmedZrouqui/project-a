@@ -1,0 +1,41 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: erp@project.com
+      PGADMIN_DEFAULT_PASSWORD: erp
+    ports:
+      - '8080:80'
+    depends_on:
+      - postgres
+
+  api:
+    image: api
+    depends_on:
+      - postgres
+      - pgadmin
+    build:
+      context: ./api
+    ports:
+      - "3001:3001"
+
+  web:
+    image: web
+    depends_on:
+      - api
+    build:
+      context: ./web
+    ports:
+      - "3000:3000"
