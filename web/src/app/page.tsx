@@ -26,12 +26,9 @@ export default function Home() {
 
   const createDatabase = async (e: any) => {
     e.preventDefault();
-
-    await fetch('http://localhost:3001/create/database', {
-      method: 'POST',
-      body: JSON.stringify({ db: dbRef.current }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    await fetch('http://localhost:3001/test').then((res) =>
+      console.log(res.body)
+    );
   };
 
   if (status === 'loading') return <>Loading</>;

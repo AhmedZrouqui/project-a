@@ -13,11 +13,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.post('/auth/login', (req, res) => {
+app.get('/test', (req, res) => {
   const body = req.body;
-  res
-    .status(200)
-    .send(JSON.stringify({ user: { name: 'oto', email: body.email } }));
+  res.status(200).send('zebiii');
 });
 
 app.post('/create/database', async (req, res) => {
